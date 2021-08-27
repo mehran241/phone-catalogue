@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { Button, TextField } from "@material-ui/core";
+import { useEffect, useState } from "react";
+import "./App.css";
+import Phone from "./Phone";
 
 function App() {
+  const handleForm = (e) => {
+    e.preventDefault();
+  };
+
+  const [search, setSearch] = useState("");
+  const updateSearch = (e) => {
+    setSearch(e.target.value);
+    console.log(search);
+  };
+
+  useEffect(() => {
+    console.log("effect has been running");
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Phone Catalogue</h1>
+
+      <form onSubmit={handleForm}>
+        <TextField
+          id="standard-basic"
+          label="Phone Search"
+          type="text"
+          value={search}
+          onChange={updateSearch}
+        />
+        <Button variant="contained" color="primary" disabled={!search}>
+          Search
+        </Button>
+      </form>
+      <Phone key={Phone.id} />
     </div>
   );
 }
